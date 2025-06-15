@@ -1,4 +1,10 @@
 /db/
+
 /__pycache__/
 /personlib/__pycache__/
+/tests/__pycache__/
+/.pytest_cache/
+
 /personlib.egg-info/
+
+/venv/
