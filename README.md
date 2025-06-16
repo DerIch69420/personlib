@@ -38,7 +38,7 @@ p.name = "John"
 p.age = 15
 
 from datetime import date
-p.birth_date = date(2010, 16, 6)
+p.birth_date = date(2010, 6, 16)
 ```
 
 - Get the attributes of the person
