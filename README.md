@@ -5,14 +5,15 @@ personlib is a library which offers useful methods for storing data about person
 ## Installation
 
 - Clone the repository
-```py
+```
 git clone https://github.com/DerIch69420/personlib.git
 ```
 
 - Create a venv and install the library
-```py
+```
 python -m venv venv
-pip install -e .
+source venv/bin/activate
+pip install -e personlib
 ```
 
 ## Documentation
