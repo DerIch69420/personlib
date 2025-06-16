@@ -53,7 +53,6 @@ class Person:
             f"Birth Date: {self._birth_date}"
         )
 
-
     # name of person
     @property
     def name(self) -> Optional[str]:
