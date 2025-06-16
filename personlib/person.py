@@ -30,7 +30,9 @@ class Person:
 
                 # set each variable except for "name"
                 self._age = data.get("age")
-                self._birth_date = data.get("birth_date")
+                birth_date_str = data.get("birth_date")
+                self._birth_date = date.fromisoformat(birth_date_str) if birth_date_str else None
+
 
         else:
             self._save() # create empty new person with given name
@@ -40,7 +42,7 @@ class Person:
             json.dump({
                 "name": self._name,
                 "age": self._age,
-                "birth_date": self._birth_date,
+                "birth_date": self._birth_date.isoformat() if self._birth_date else None,
             }, file, indent=4)
 
     def __str__(self) -> str:
@@ -90,7 +92,7 @@ class Person:
     @birth_date.setter
     def birth_date(self, value: Optional[date]) -> None:
         ''' change the birth date of the person '''
-        if date is None or isinstance(value, date):
+        if value is None or isinstance(value, date):
             self._birth_date = value
             self._save()
         else:
