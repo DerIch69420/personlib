@@ -36,7 +36,6 @@ p = personlib.Person("Name")
 - Change the any attributes of the person
 ```py
 p.name = "John"
-p.age = 15
 
 from datetime import date
 p.birth_date = date(2010, 6, 16)
@@ -44,7 +43,7 @@ p.birth_date = date(2010, 6, 16)
 
 - Get the attributes of the person
 ```py
-name = p.name
-age = p.age
-birth_date = p.birth_date
+name: str = p.name # string representing the name
+age: int = p.age # integer representing the years which have passed since the date of birth
+birth_date: date = p.birth_date # datetime.date representing the date of birth
 ```

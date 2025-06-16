@@ -1,7 +1,8 @@
 import json # storing and loading person data
 import os # checking if dirs and files exist
 from typing import Optional
-from datetime import date # birth date of person
+from datetime import date, timedelta # birth date and age of person
+from math import floor # convert days to years (age of person)
 
 import personlib  # to get global DB_DIR
 
@@ -13,7 +14,6 @@ class Person:
 
         # other data set to None
         # chagned by user or via loading json-file
-        self._age: Optional[int] = None
         self._birth_date: Optional[date] = None
 
         # get global DB_DIR
@@ -29,7 +29,6 @@ class Person:
                 data = json.load(file)
 
                 # set each variable except for "name"
-                self._age = data.get("age")
                 birth_date_str = data.get("birth_date")
                 self._birth_date = date.fromisoformat(birth_date_str) if birth_date_str else None
 
@@ -41,7 +40,6 @@ class Person:
         with open(self._filepath, "w") as file:
             json.dump({
                 "name": self._name,
-                "age": self._age,
                 "birth_date": self._birth_date.isoformat() if self._birth_date else None,
             }, file, indent=4)
 
@@ -49,10 +47,8 @@ class Person:
         ''' return all information about the person '''
         return (
             f"Name: {self._name}\n"
-            f"Age: {self._age}\n"
             f"Birth Date: {self._birth_date}"
         )
-
 
     # name of person
     @property
@@ -74,15 +70,23 @@ class Person:
     @property
     def age(self) -> Optional[int]:
         ''' return the age of the person'''
-        return self._age
-    @age.setter
-    def age(self, value: Optional[int]) -> None:
-        ''' change the age of the person '''
-        if value is None or (isinstance(value, int) and value >= 0):
-            self._age = value
-            self._save()
+        if self._birth_date == None:
+            return None
         else:
-            raise ValueError("Age must be a non-negative integer or None")
+            today: date = date.today() # get current date
+
+            # substract birthdate from todays date
+            # result is days since birth date
+            # stored as datetime.timedelta
+            age_days: timedelta = today - self._birth_date 
+
+            # convert datetime.timedelta to integer representing days since birth date
+            age: int = age_days.days
+
+            # divide by 365 and use math.floor to get age of person
+            age: int = floor(age / 365) 
+
+            return age
 
     # birth date of person
     @property

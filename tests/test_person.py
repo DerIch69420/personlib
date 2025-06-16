@@ -3,12 +3,12 @@ import shutil
 import personlib
 
 from datetime import date
-
+from math import floor
 
 def setup_module(module):
     # setup a test directory for each test module
     personlib.DB_DIR = "test_db"
-    os.makedirs(personlib.DB_DIR, exist_ok=True)
+    # os.makedirs(personlib.DB_DIR, exist_ok=True)
 
 
 def teardown_module(module):
@@ -22,24 +22,6 @@ def test_create_person():
 
     assert os.path.exists(os.path.join(personlib.DB_DIR, "testuser.json"))
 
-def test_age():
-    ''' test age attributes and methods '''
-    p = personlib.Person("AgeTest")
-    p.age = 25
-    assert p.age == 25
-
-    p1 = personlib.Person("AgeNone")
-    assert p1.age == None
-
-def test_name():
-    ''' test name attributes and methods '''
-    p = personlib.Person("OldName")
-    p.age = 20
-    p.name = "NewName"
-
-    assert os.path.exists(os.path.join(personlib.DB_DIR, "newname.json"))
-    assert not os.path.exists(os.path.join(personlib.DB_DIR, "oldname.json"))
-
 def test_birth_date():
     ''' test birth date attributes and methods '''
     p = personlib.Person("BirthDateTest")
@@ -48,3 +30,23 @@ def test_birth_date():
 
     p1 = personlib.Person("BirthDateNone")
     assert p1.birth_date == None
+
+def test_age():
+    ''' test age attributes and methods '''
+    p = personlib.Person("AgeTest")
+    p.birth_date = date(2010, 12, 24)
+    today = date.today()
+    age: int = floor((today - date(2010, 12, 24)).days / 365)
+    assert p.age == age
+
+    p1 = personlib.Person("AgeNone")
+    assert p1.age == None
+
+def test_name():
+    ''' test name attributes and methods '''
+    p = personlib.Person("OldName")
+    p.name = "NewName"
+
+    assert os.path.exists(os.path.join(personlib.DB_DIR, "newname.json"))
+    assert not os.path.exists(os.path.join(personlib.DB_DIR, "oldname.json"))
+
