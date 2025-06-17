@@ -28,6 +28,11 @@ import personlib
 personlib.DB_DIR = "db"
 ```
 
+- Choose the indent which is used in the json files
+```py
+personlib.JSON_INDENT = 4
+```
+
 - Create a new person
 ```py
 p = personlib.Person("Name")

@@ -41,7 +41,7 @@ class Person:
             json.dump({
                 "name": self._name,
                 "birth_date": self._birth_date.isoformat() if self._birth_date else None,
-            }, file, indent=4)
+            }, file, indent=personlib.JSON_INDENT)
 
     def __str__(self) -> str:
         ''' return all information about the person '''
