@@ -16,8 +16,5 @@ class TestDatabase(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    # remove existing database to avoid conflicts
-    if os.path.exists(personlib.DB_DIR):
-        shutil.rmtree(personlib.DB_DIR)
 
     unittest.main()
