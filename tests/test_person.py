@@ -5,24 +5,28 @@ import personlib
 from datetime import date
 from math import floor
 
-def setup_module(module):
+def setup_module(module) -> None:
     # setup a test directory for each test module
     personlib.DB_DIR = "test_db"
     # os.makedirs(personlib.DB_DIR, exist_ok=True)
 
 
-def teardown_module(module):
+def teardown_module(module) -> None:
     # clean up after tests
     shutil.rmtree(personlib.DB_DIR)
 
+def test_db_creation() -> None:
+    p = personlib.Person("DataBaseInitIfEmpty")
 
-def test_create_person():
+    assert os.path.exists(personlib.DB_DIR)
+
+def test_create_person() -> None:
     ''' test person creation '''
     p = personlib.Person("TestUser")
 
     assert os.path.exists(os.path.join(personlib.DB_DIR, "testuser.json"))
 
-def test_birth_date():
+def test_birth_date() -> None:
     ''' test birth date attributes and methods '''
     p = personlib.Person("BirthDateTest")
     p._birth_date = date(2010, 6, 16)
@@ -31,7 +35,7 @@ def test_birth_date():
     p1 = personlib.Person("BirthDateNone")
     assert p1.birth_date == None
 
-def test_age():
+def test_age() -> None:
     ''' test age attributes and methods '''
     p = personlib.Person("AgeTest")
     p.birth_date = date(2010, 12, 24)
@@ -42,7 +46,7 @@ def test_age():
     p1 = personlib.Person("AgeNone")
     assert p1.age == None
 
-def test_name():
+def test_name() -> None:
     ''' test name attributes and methods '''
     p = personlib.Person("OldName")
     p.name = "NewName"
