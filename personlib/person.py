@@ -71,6 +71,7 @@ class Person:
 
             if os.path.exists(old_filepath):
                 # update filepath for person
+                self._name = new_name
                 self._filepath = new_filepath
 
                 # rename the old file to the new one
