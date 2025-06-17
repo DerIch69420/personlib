@@ -4,5 +4,5 @@ from .person import Person
 DB_DIR: str = "db"
 JSON_INDENT: int = 4
 
-__all__ = ["Person", "DB_DIR"]
+__all__ = ["Person", "DB_DIR", "JSON_INDENT"]
 

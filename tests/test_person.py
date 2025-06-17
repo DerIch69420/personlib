@@ -1,6 +1,7 @@
 import os
 import shutil
 import personlib
+import pytest
 
 from datetime import date
 from math import floor
@@ -53,4 +54,14 @@ def test_name() -> None:
 
     assert os.path.exists(os.path.join(personlib.DB_DIR, "newname.json"))
     assert not os.path.exists(os.path.join(personlib.DB_DIR, "oldname.json"))
+
+    with pytest.raises(Exception) as excinfo:
+
+        p1 = personlib.Person("User")
+        p2 = personlib.Person("User1")
+        p2.name = "User"
+    assert str(excinfo.value) == "A person with this name already exists"  
+
+    assert os.path.exists(os.path.join(personlib.DB_DIR, "user.json"))
+    assert os.path.exists(os.path.join(personlib.DB_DIR, "user1.json"))
 

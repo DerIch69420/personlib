@@ -4,8 +4,7 @@ from typing import Optional
 from datetime import date, timedelta # birth date and age of person
 from math import floor # convert days to years (age of person)
 
-import personlib  # to get global DB_DIR and JSON_INDENT
-
+import personlib # to get global DB_DIR and JSON_INDENT
 
 class Person:
     # constructor
@@ -32,7 +31,6 @@ class Person:
                 birth_date_str = data.get("birth_date")
                 self._birth_date = date.fromisoformat(birth_date_str) if birth_date_str else None
 
-
         else:
             self._save() # create empty new person with given name
 
@@ -56,15 +54,35 @@ class Person:
         '''The name property.'''
         return self._name
     @name.setter
-    def name(self, new_name: str) -> None:
+    def name(self, new_name: str) -> None: # return value is the exit code
         ''' change the name of the person '''
+
         if isinstance(new_name, str) and new_name.strip():
-            old_filepath = self._filepath
-            self._name = new_name
-            self._filepath = os.path.join(self._db_dir, f"{self._name.lower()}.json")
+            old_filepath: str = self._filepath # save current filepath
+            # create new file path with new name of person
+            # don't save it yet in person object
+            # because other person with same name/file already exists
+            new_filepath: str = os.path.join(self._db_dir, f"{new_name.lower()}.json")
+
+            if os.path.exists(new_filepath):
+                # if the new filepath already exists
+                # don't update the name and don't rename file
+                raise Exception("A person with this name already exists")
+
             if os.path.exists(old_filepath):
-                os.rename(old_filepath, self._filepath)
+                # update filepath for person
+                self._filepath = new_filepath
+
+                # rename the old file to the new one
+                # if no other already exists
+                os.rename(old_filepath, new_filepath)
+
+            # save the new name into the json file
             self._save()
+
+        else:
+            # if new name is not parsed as string
+            raise ValueError("Name must be parsed as type string")
 
     # age of person
     @property
