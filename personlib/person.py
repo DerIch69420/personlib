@@ -4,7 +4,7 @@ from typing import Optional
 from datetime import date, timedelta # birth date and age of person
 from math import floor # convert days to years (age of person)
 
-import personlib  # to get global DB_DIR
+import personlib  # to get global DB_DIR and JSON_INDENT
 
 
 class Person:
