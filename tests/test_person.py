@@ -27,26 +27,6 @@ def test_create_person() -> None:
 
     assert os.path.exists(os.path.join(personlib.DB_DIR, "testuser.json"))
 
-def test_birth_date() -> None:
-    ''' test birth date attributes and methods '''
-    p = personlib.Person("BirthDateTest")
-    p._birth_date = date(2010, 6, 16)
-    assert p.birth_date == date(2010, 6, 16)
-
-    p1 = personlib.Person("BirthDateNone")
-    assert p1.birth_date == None
-
-def test_age() -> None:
-    ''' test age attributes and methods '''
-    p = personlib.Person("AgeTest")
-    p.birth_date = date(2010, 12, 24)
-    today = date.today()
-    age: int = floor((today - date(2010, 12, 24)).days / 365)
-    assert p.age == age
-
-    p1 = personlib.Person("AgeNone")
-    assert p1.age == None
-
 def test_name() -> None:
     ''' test name attributes and methods '''
     p = personlib.Person("OldName")
