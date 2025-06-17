@@ -31,7 +31,7 @@ class TestName(unittest.TestCase):
     def test_change_name(self) -> None:
         ''' test changing name of the person '''
 
-        p = personlib.Person("NameChange")
+        p = personlib.Person("NameChange") # create new person
 
         # check if name is right
         self.assertEqual(p.name, "NameChange")
