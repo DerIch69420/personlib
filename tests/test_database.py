@@ -3,7 +3,6 @@ import unittest
 import personlib
 
 import os
-import shutil
 
 class TestDatabase(unittest.TestCase):
 
