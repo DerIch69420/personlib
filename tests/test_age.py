@@ -3,7 +3,6 @@ import unittest
 import personlib
 
 import os
-import shutil
 
 from datetime import date
 from math import floor
